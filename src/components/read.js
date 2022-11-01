@@ -27,6 +27,22 @@ export default function Read() {
     []
   );
 
+  const onDelete = (id) => {
+    axios
+      .delete(`https://636162b8af66cc87dc2ab755.mockapi.io/fakeData/${id}`)
+      .then(() => {
+        getData();
+      });
+  };
+
+  const getData = () => {
+    axios
+      .get(`https://636162b8af66cc87dc2ab755.mockapi.io/fakeData`)
+      .then((response) => {
+        setAPIData(response.data);
+      });
+  };
+
   return (
     <div>
       <Table singleLine>
@@ -36,6 +52,7 @@ export default function Read() {
             <Table.HeaderCell>Last name</Table.HeaderCell>
             <Table.HeaderCell>Checked</Table.HeaderCell>
             <Table.HeaderCell>Update</Table.HeaderCell>
+            <Table.HeaderCell>Delete</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 
@@ -60,6 +77,15 @@ export default function Read() {
                       </Button>
                     </TableCell>
                   </Link>
+                  <TableCell>
+                    <Button
+                      onClick={() => {
+                        onDelete(data.id);
+                      }}
+                    >
+                      Delete
+                    </Button>
+                  </TableCell>
                 </Table.Row>
               );
             })}
