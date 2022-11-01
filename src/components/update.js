@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Button, Checkbox, Form } from "semantic-ui-react";
 import axios from "axios";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export default function Update() {
+  const navigate = useNavigate();
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [checkbox, setCheckbox] = useState(false);
@@ -17,15 +20,19 @@ export default function Update() {
   }, []);
 
   const updateAPIData = () => {
-    axios.put(
-      `https://636162b8af66cc87dc2ab755.mockapi.io/fakeData/${id}
+    axios
+      .put(
+        `https://636162b8af66cc87dc2ab755.mockapi.io/fakeData/${id}
     `,
-      {
-        firstName,
-        lastName,
-        checkbox,
-      }
-    );
+        {
+          firstName,
+          lastName,
+          checkbox,
+        }
+      )
+      .then(() => {
+        navigate("/read");
+      });
   };
 
   return (
