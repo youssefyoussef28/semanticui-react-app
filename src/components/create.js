@@ -18,7 +18,8 @@ export default function Create() {
       })
       .then(() => {
         navigate("/read");
-      });
+      })
+      .catch(console.error("error"));
   };
 
   return (
